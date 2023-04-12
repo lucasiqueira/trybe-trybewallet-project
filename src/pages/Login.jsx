@@ -29,8 +29,9 @@ class Login extends React.Component {
 
   handleLoginButton = () => {
     const { inputEmail } = this.state;
-    const { dispatch } = this.props;
+    const { dispatch, history } = this.props;
     dispatch(saveEmail(inputEmail));
+    history.push('/carteira');
   };
 
   render() {
@@ -67,6 +68,9 @@ class Login extends React.Component {
 
 Login.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
 };
 
 export default connect()(Login);
