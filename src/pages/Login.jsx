@@ -1,5 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import validateFields from '../helpers/validateFields';
+import { saveEmail } from '../redux/actions';
 
 class Login extends React.Component {
   state = {
@@ -22,6 +25,12 @@ class Login extends React.Component {
     this.setState({
       [name]: value,
     }, () => this.enableLoginButton());
+  };
+
+  handleLoginButton = () => {
+    const { inputEmail } = this.state;
+    const { dispatch } = this.props;
+    dispatch(saveEmail(inputEmail));
   };
 
   render() {
@@ -47,6 +56,7 @@ class Login extends React.Component {
         <button
           type="submit"
           disabled={ isButtonDisabled }
+          onClick={ this.handleLoginButton }
         >
           Entrar
         </button>
@@ -55,4 +65,8 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+};
+
+export default connect()(Login);
