@@ -1,14 +1,13 @@
 header {
+  align-items: center;
   background-color: white;
-  width: 80%;
-  margin: auto;
+  box-shadow: -4px 9px 13px rgba(5, 18, 54, 0.4);
   display: flex;
   height: 156px;
-  align-items: center;
   justify-content: space-between;
+  margin: auto;
   padding: 0 100px;
-  box-shadow: -4px 9px 13px rgba(5, 18, 54, 0.4);
-
+  width: 80%;
 }
 
 .header-logo {
@@ -16,9 +15,9 @@ header {
 }
 
 .info-header {
+  align-self: center;
   display: flex;
   justify-content: flex-end;
-  align-self: center;
 }
 
 .total-expenses-div {
@@ -41,11 +40,11 @@ header {
 
 .info-header span {
   align-self: center;
-  margin-right: 4px;
   font-size: 14px;
+  margin-right: 4px;
 }
 
 .email-field {
-  color: #2FC18C;
+  color: #2fc18c;
   font-weight: 600;
 }
