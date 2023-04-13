@@ -1,0 +1,41 @@
+.form-section {
+  width: 80%;
+  height: 134px;
+  background-color: rgb(235, 239, 244);
+  border-radius: 0px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 0 100px;
+}
+
+.form-line {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 14px;
+  display: flex;
+  align-items: center;
+  color: #003BE5;
+}
+
+.form-section label {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+}
+
+.input-element {
+  display: flex;
+  flex-grow: 1;
+  height: 30px;
+  border: 1px solid #003BE5;
+  border-radius: 5px;
+  background-color: rgb(235, 239, 244);
+  color: #003BE5;
+  padding: 0 5px;
+}
+
+.form-section label span {
+  padding: 0 14px 0 30px;
+}
