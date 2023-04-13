@@ -54,7 +54,7 @@ class WalletForm extends Component {
         } = this.state;
         const expense = {
           id: expenses.length,
-          value: Number(valueInput),
+          value: valueInput,
           description: descriptionInput,
           currency: currencyInput,
           method: paymentMethodInput,
