@@ -1,0 +1,49 @@
+header {
+  background-color: white;
+  width: 80%;
+  margin: auto;
+  display: flex;
+  height: 156px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 100px;
+}
+
+.header-logo {
+  height: 52px;
+}
+
+.info-header {
+  display: flex;
+  justify-content: flex-end;
+  align-self: center;
+}
+
+.total-expenses-div {
+  color: #003be5;
+}
+
+.info-header div {
+  display: flex;
+  justify-content: center;
+}
+
+.icon-header {
+  height: 28px;
+  padding-right: 10px;
+}
+
+.label-header {
+  font-weight: 800;
+}
+
+.info-header span {
+  align-self: center;
+  margin-right: 4px;
+  font-size: 14px;
+}
+
+.email-field {
+  color: #2FC18C;
+  font-weight: 600;
+}
