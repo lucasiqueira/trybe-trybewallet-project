@@ -48,5 +48,5 @@ export const addExpense = (expense) => ({
 
 export const refreshTotalExpense = (total) => ({
   type: REFRESH_TOTAL_EXPENSE,
-  payload: total,
+  payload: Number(total),
 });

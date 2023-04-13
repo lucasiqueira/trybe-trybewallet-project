@@ -12,9 +12,9 @@ import '../assets/styles/WalletForm.css';
 class WalletForm extends Component {
   state = {
     descriptionInput: '',
-    tagInput: 'food',
+    tagInput: 'Alimentação',
     valueInput: '',
-    paymentMethodInput: 'cash',
+    paymentMethodInput: 'Dinheiro',
     currencyInput: 'USD',
     isLoading: false,
   };
@@ -54,7 +54,7 @@ class WalletForm extends Component {
         } = this.state;
         const expense = {
           id: expenses.length,
-          value: valueInput,
+          value: Number(valueInput),
           description: descriptionInput,
           currency: currencyInput,
           method: paymentMethodInput,
@@ -65,9 +65,9 @@ class WalletForm extends Component {
         this.refreshTotal();
         this.setState({
           descriptionInput: '',
-          tagInput: 'food',
+          tagInput: 'Alimentação',
           valueInput: '',
-          paymentMethodInput: 'cash',
+          paymentMethodInput: 'Dinheiro',
           currencyInput: 'USD',
         });
       });
