@@ -23,6 +23,11 @@ class WalletForm extends Component {
     this.setState({ [name]: value });
   };
 
+  handleAddExpenseButton = (e) => {
+    e.preventDefault();
+    console.log('clicou');
+  };
+
   render() {
     const { currencies } = this.props;
     const {
@@ -34,8 +39,8 @@ class WalletForm extends Component {
     } = this.state;
     return (
       <form className="form-section">
-        <section className="form-line">
-          <label className="description-label">
+        <section className="input-section">
+          <label className="description-label first-row">
             <span>Descrição da Despesa</span>
             <input
               type="text"
@@ -46,7 +51,7 @@ class WalletForm extends Component {
               className="input-element description-input"
             />
           </label>
-          <label className="tag-label">
+          <label className="tag-label first-row">
             <span>Categoria da despesa</span>
             <select
               name="tagInput"
@@ -103,7 +108,12 @@ class WalletForm extends Component {
           </label>
         </section>
         <section className="add-expense-section">
-          <button className="add-expense-button">Adicionar despesa</button>
+          <button
+            className="add-expense-button"
+            onClick={ this.handleAddExpenseButton }
+          >
+            Adicionar despesa
+          </button>
         </section>
       </form>
     );
