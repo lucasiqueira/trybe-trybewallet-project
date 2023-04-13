@@ -8,10 +8,10 @@ import {
   fetchCurrencies,
   fetchCurrenciesToExpense,
   refreshExpenses,
-  refreshTotalExpense,
-} from '../redux/actions';
+  refreshTotalExpense } from '../redux/actions';
 import '../assets/styles/WalletForm.css';
 import { INITIAL_WALLET_FORM_STATE } from '../constants';
+import expenseIdGenerator from '../helpers/expenseIdGenerator';
 
 class WalletForm extends Component {
   state = {
@@ -104,7 +104,7 @@ class WalletForm extends Component {
         const { valueInput, descInput, curInput, methodInput, tagInput,
         } = this.state;
         const expense = {
-          id: expenses.length,
+          id: expenseIdGenerator(expenses),
           value: valueInput,
           description: descInput,
           currency: curInput,

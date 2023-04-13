@@ -8,6 +8,9 @@ import {
   removeExpense,
 } from '../redux/actions';
 import { DELETE_BTN_TEXT_POSITION, EDIT_BTN_TEXT_POSITON } from '../constants';
+import '../assets/styles/Table.css';
+import delIcon from '../assets/svg/trash-can-icon.svg';
+import editIcon from '../assets/svg/edit-icon.svg';
 
 class Table extends Component {
   refreshTotal = () => {
@@ -24,7 +27,6 @@ class Table extends Component {
     const { dispatch } = this.props;
     dispatch(editExpenseBegins(id));
     dispatch(editExpenseCapture(id));
-    // dispatch(editExpenseFormRenders());
   };
 
   onDeleteButtonClick = async ({ target }) => {
@@ -37,64 +39,69 @@ class Table extends Component {
   render() {
     const { expenses } = this.props;
     return (
-      <table>
-        <thead>
-          <tr>
-            <th>Descrição</th>
-            <th>Tag</th>
-            <th>Método de pagamento</th>
-            <th>Valor</th>
-            <th>Moeda</th>
-            <th>Câmbio utilizado</th>
-            <th>Valor convertido</th>
-            <th>Moeda de conversão</th>
-            <th>Editar/Excluir</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            expenses.map((exp) => {
-              const {
-                id,
-                tag,
-                currency,
-                description,
-                exchangeRates,
-                method,
-                value,
-              } = exp;
-              return (
-                <tr key={ id }>
-                  <td>{description}</td>
-                  <td>{tag}</td>
-                  <td>{method}</td>
-                  <td>{Number(value).toFixed(2)}</td>
-                  <td>{exchangeRates[currency].name}</td>
-                  <td>{Number(exchangeRates[currency].ask).toFixed(2)}</td>
-                  <td>{(exchangeRates[currency].ask * value).toFixed(2)}</td>
-                  <td>Real</td>
-                  <td>
-                    <button
-                      data-testid="edit-btn"
-                      name={ `edit-btn-${id}` }
-                      onClick={ this.onEditButtonClick }
-                    >
-                      Editar
-                    </button>
-                    <button
-                      data-testid="delete-btn"
-                      onClick={ this.onDeleteButtonClick }
-                      name={ `delete-btn-${id}` }
-                    >
-                      Excluir
-                    </button>
-                  </td>
-                </tr>
-              );
-            })
-          }
-        </tbody>
-      </table>
+      <section className="table-section">
+        <table className="table">
+          <thead className="table-header">
+            <tr>
+              <th>Descrição</th>
+              <th>Tag</th>
+              <th>Método de pagamento</th>
+              <th>Valor</th>
+              <th>Moeda</th>
+              <th>Câmbio utilizado</th>
+              <th>Valor convertido</th>
+              <th>Moeda de conversão</th>
+              <th>Editar/Excluir</th>
+            </tr>
+          </thead>
+          <tbody className="table-body">
+            {
+              expenses.map((exp) => {
+                const {
+                  id,
+                  tag,
+                  currency,
+                  description,
+                  exchangeRates,
+                  method,
+                  value,
+                } = exp;
+                return (
+                  <tr key={ id }>
+                    <td>{description}</td>
+                    <td>{tag}</td>
+                    <td>{method}</td>
+                    <td>{Number(value).toFixed(2)}</td>
+                    <td>{exchangeRates[currency].name}</td>
+                    <td>{Number(exchangeRates[currency].ask).toFixed(2)}</td>
+                    <td>{(exchangeRates[currency].ask * value).toFixed(2)}</td>
+                    <td>Real</td>
+                    <td>
+                      <button
+                        data-testid="edit-btn"
+                        name={ `edit-btn-${id}` }
+                        onClick={ this.onEditButtonClick }
+                        className="table-button"
+                      >
+                        <span className="no-show-label">Editar</span>
+                        <img src={ editIcon } alt="Editar" />
+                      </button>
+                      <button
+                        data-testid="delete-btn"
+                        onClick={ this.onDeleteButtonClick }
+                        className="table-button"
+                      >
+                        <span className="no-show-label">Excluir</span>
+                        <img src={ delIcon } name={ `delete-btn-${id}` } alt="Excluir" />
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })
+            }
+          </tbody>
+        </table>
+      </section>
     );
   }
 }
