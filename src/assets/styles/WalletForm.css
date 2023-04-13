@@ -8,6 +8,8 @@
   flex-direction: column;
   justify-content: space-evenly;
   padding: 0 100px;
+  box-shadow: -4px 9px 13px rgba(5, 18, 54, 0.4);
+
 }
 
 .form-line {
@@ -38,4 +40,15 @@
 
 .form-section label span {
   padding: 0 14px 0 30px;
+}
+
+select {
+  font-family: Epilogue, sans-serif;
+  height: 30px;
+}
+
+select::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  background-color: blueviolet;
 }

@@ -7,6 +7,8 @@ header {
   align-items: center;
   justify-content: space-between;
   padding: 0 100px;
+  box-shadow: -4px 9px 13px rgba(5, 18, 54, 0.4);
+
 }
 
 .header-logo {
