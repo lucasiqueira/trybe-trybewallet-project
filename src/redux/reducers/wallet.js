@@ -1,10 +1,17 @@
-import { RECEIVE_CURRENCIES } from '../actions';
+import {
+  ADD_EXPENSE,
+  RECEIVE_CURRENCIES,
+  RECEIVE_CURRENCIES_TO_EXPENSE,
+  REFRESH_TOTAL_EXPENSE,
+} from '../actions';
 
 const INITIAL_STATE = {
   currencies: [], // array de string
   expenses: [], // array de objetos, com cada objeto tendo as chaves id, value, currency, method, tag, description e exchangeRates
   editor: false, // valor booleano que indica de uma despesa está sendo editada
   idToEdit: 0, // valor numérico que armazena o id da despesa que esta sendo editada
+  currenciesToExpense: {},
+  totalExpense: 0,
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
@@ -12,7 +19,22 @@ const wallet = (state = INITIAL_STATE, action) => {
   case RECEIVE_CURRENCIES:
     return {
       ...state,
-      currencies: action.currencies,
+      currencies: action.payload,
+    };
+  case ADD_EXPENSE:
+    return {
+      ...state,
+      expenses: [...state.expenses, action.payload],
+    };
+  case RECEIVE_CURRENCIES_TO_EXPENSE:
+    return {
+      ...state,
+      currenciesToExpense: action.payload,
+    };
+  case REFRESH_TOTAL_EXPENSE:
+    return {
+      ...state,
+      totalExpense: action.payload,
     };
   default:
     return state;

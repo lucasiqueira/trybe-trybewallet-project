@@ -8,7 +8,7 @@ import '../assets/styles/Header.css';
 
 class Header extends Component {
   render() {
-    const { email } = this.props;
+    const { email, totalExpense } = this.props;
     return (
       <header>
         <img src={ logoTrybeWallet } alt="Logo da TrybeWallet" className="header-logo" />
@@ -16,7 +16,7 @@ class Header extends Component {
           <img src={ coinsIcon } className="icon-header" alt="Icone de moedas" />
           <div className="total-expenses-div">
             <span className="label-header">Total de despesas:</span>
-            <span data-testid="total-field">0</span>
+            <span data-testid="total-field">{totalExpense}</span>
             <span data-testid="header-currency-field">BRL</span>
           </div>
         </div>
@@ -31,10 +31,12 @@ class Header extends Component {
 
 Header.propTypes = {
   email: PropTypes.string.isRequired,
+  totalExpense: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
+  totalExpense: state.wallet.totalExpense,
 });
 
 export default connect(mapStateToProps)(Header);

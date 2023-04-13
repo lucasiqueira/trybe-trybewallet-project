@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchCurrencies } from '../redux/actions';
+import {
+  addExpense,
+  fetchCurrencies,
+  fetchCurrenciesToExpense,
+  refreshTotalExpense,
+} from '../redux/actions';
 import '../assets/styles/WalletForm.css';
 
 class WalletForm extends Component {
@@ -11,6 +16,7 @@ class WalletForm extends Component {
     valueInput: '',
     paymentMethodInput: 'cash',
     currencyInput: 'USD',
+    isLoading: false,
   };
 
   componentDidMount() {
@@ -23,9 +29,49 @@ class WalletForm extends Component {
     this.setState({ [name]: value });
   };
 
+  refreshTotal = () => {
+    const { expenses, dispatch } = this.props;
+    const totalExpense = expenses.reduce((acc, curr) => {
+      acc += Number(curr.exchangeRates[curr.currency].ask * curr.value);
+      return acc;
+    }, 0);
+    dispatch(refreshTotalExpense(totalExpense.toFixed(2)));
+  };
+
   handleAddExpenseButton = (e) => {
     e.preventDefault();
-    console.log('clicou');
+    const { dispatch, expenses } = this.props;
+    this.setState({ isLoading: true }, async () => {
+      await dispatch(fetchCurrenciesToExpense());
+      this.setState({ isLoading: false }, async () => {
+        const { currenciesToExpense } = this.props;
+        const {
+          valueInput,
+          descriptionInput,
+          currencyInput,
+          paymentMethodInput,
+          tagInput,
+        } = this.state;
+        const expense = {
+          id: expenses.length,
+          value: valueInput,
+          description: descriptionInput,
+          currency: currencyInput,
+          method: paymentMethodInput,
+          tag: tagInput,
+          exchangeRates: currenciesToExpense,
+        };
+        await dispatch(addExpense(expense));
+        this.refreshTotal();
+        this.setState({
+          descriptionInput: '',
+          tagInput: 'food',
+          valueInput: '',
+          paymentMethodInput: 'cash',
+          currencyInput: 'USD',
+        });
+      });
+    });
   };
 
   render() {
@@ -36,6 +82,7 @@ class WalletForm extends Component {
       valueInput,
       paymentMethodInput,
       currencyInput,
+      isLoading,
     } = this.state;
     return (
       <form className="form-section">
@@ -60,11 +107,11 @@ class WalletForm extends Component {
               onChange={ this.handleChange }
               className="input-element tag-input"
             >
-              <option value="food">Alimentação</option>
-              <option value="fun">Lazer</option>
-              <option value="work">Trabalho</option>
-              <option value="transportation">Transporte</option>
-              <option value="health">Saúde</option>
+              <option value="Alimentação">Alimentação</option>
+              <option value="Lazer">Lazer</option>
+              <option value="Trabalho">Trabalho</option>
+              <option value="Transporte">Transporte</option>
+              <option value="Saúde">Saúde</option>
             </select>
           </label>
           <label className="value-label">
@@ -87,9 +134,9 @@ class WalletForm extends Component {
               onChange={ this.handleChange }
               className="input-element"
             >
-              <option value="cash">Dinheiro</option>
-              <option value="credit-card">Cartão de crédito</option>
-              <option value="debit-card">Cartão de débito</option>
+              <option value="Dinheiro">Dinheiro</option>
+              <option value="Cartão de crédito">Cartão de crédito</option>
+              <option value="Cartão de débito">Cartão de débito</option>
             </select>
           </label>
           <label className="currency-label">
@@ -114,6 +161,11 @@ class WalletForm extends Component {
           >
             Adicionar despesa
           </button>
+          {
+            isLoading && (
+              <p>Carregando...</p>
+            )
+          }
         </section>
       </form>
     );
@@ -123,10 +175,22 @@ class WalletForm extends Component {
 WalletForm.propTypes = {
   dispatch: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  expenses: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+    }),
+  ).isRequired,
+  currenciesToExpense: PropTypes.shape(
+    PropTypes.shape({
+      code: PropTypes.string,
+    }),
+  ).isRequired,
 };
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  expenses: state.wallet.expenses,
+  currenciesToExpense: state.wallet.currenciesToExpense,
 });
 
 export default connect(mapStateToProps)(WalletForm);
