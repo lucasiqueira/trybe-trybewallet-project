@@ -35,7 +35,7 @@ class WalletForm extends Component {
     return (
       <form className="form-section">
         <section className="form-line">
-          <label>
+          <label className="description-label">
             <span>Descrição da Despesa</span>
             <input
               type="text"
@@ -43,17 +43,17 @@ class WalletForm extends Component {
               value={ descriptionInput }
               name="descriptionInput"
               onChange={ this.handleChange }
-              className="input-element"
+              className="input-element description-input"
             />
           </label>
-          <label>
+          <label className="tag-label">
             <span>Categoria da despesa</span>
             <select
               name="tagInput"
               data-testid="tag-input"
               value={ tagInput }
               onChange={ this.handleChange }
-              className="input-element"
+              className="input-element tag-input"
             >
               <option value="food">Alimentação</option>
               <option value="fun">Lazer</option>
@@ -62,9 +62,7 @@ class WalletForm extends Component {
               <option value="health">Saúde</option>
             </select>
           </label>
-        </section>
-        <section className="form-line">
-          <label>
+          <label className="value-label">
             <span>Valor</span>
             <input
               type="text"
@@ -72,10 +70,10 @@ class WalletForm extends Component {
               name="valueInput"
               value={ valueInput }
               onChange={ this.handleChange }
-              className="input-element"
+              className="input-element value-input"
             />
           </label>
-          <label>
+          <label className="method-label">
             <span>Método de Pagamento</span>
             <select
               name="paymentMethodInput"
@@ -89,7 +87,7 @@ class WalletForm extends Component {
               <option value="debit-card">Cartão de débito</option>
             </select>
           </label>
-          <label>
+          <label className="currency-label">
             <span>Moeda</span>
             <select
               name="currencyInput"
@@ -103,6 +101,9 @@ class WalletForm extends Component {
               }
             </select>
           </label>
+        </section>
+        <section className="add-expense-section">
+          <button className="add-expense-button">Adicionar despesa</button>
         </section>
       </form>
     );
