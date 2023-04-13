@@ -3,6 +3,7 @@ import {
   RECEIVE_CURRENCIES,
   RECEIVE_CURRENCIES_TO_EXPENSE,
   REFRESH_TOTAL_EXPENSE,
+  REMOVE_EXPENSE,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -34,7 +35,12 @@ const wallet = (state = INITIAL_STATE, action) => {
   case REFRESH_TOTAL_EXPENSE:
     return {
       ...state,
-      totalExpense: action.payload,
+      totalExpense: (action.payload === 0) ? Number(0).toFixed(2) : action.payload,
+    };
+  case REMOVE_EXPENSE:
+    return {
+      ...state,
+      expenses: state.expenses.filter((expense) => expense.id !== action.payload),
     };
   default:
     return state;

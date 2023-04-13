@@ -1,11 +1,28 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { refreshTotalExpense, removeExpense } from '../redux/actions';
+import { DELETE_BTN_TEXT_POSITION } from '../constants';
 
 class Table extends Component {
+  refreshTotal = () => {
+    const { expenses, dispatch } = this.props;
+    const totalExpense = expenses.reduce((acc, curr) => {
+      acc += Number(curr.exchangeRates[curr.currency].ask * curr.value);
+      return acc;
+    }, 0);
+    dispatch(refreshTotalExpense(totalExpense.toFixed(2)));
+  };
+
+  onDeleteButtonClick = async ({ target }) => {
+    const id = Number(target.name.slice(DELETE_BTN_TEXT_POSITION));
+    const { dispatch } = this.props;
+    await dispatch(removeExpense(id));
+    this.refreshTotal();
+  };
+
   render() {
     const { expenses } = this.props;
-    console.log(expenses);
     return (
       <table>
         <thead>
@@ -43,7 +60,15 @@ class Table extends Component {
                   <td>{Number(exchangeRates[currency].ask).toFixed(2)}</td>
                   <td>{(exchangeRates[currency].ask * value).toFixed(2)}</td>
                   <td>Real</td>
-                  <td />
+                  <td>
+                    <button
+                      data-testid="delete-btn"
+                      onClick={ this.onDeleteButtonClick }
+                      name={ `delete-btn-${id}` }
+                    >
+                      Excluir
+                    </button>
+                  </td>
                 </tr>
               );
             })
@@ -69,6 +94,7 @@ Table.propTypes = {
     method: PropTypes.string,
     value: PropTypes.string,
   })).isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
