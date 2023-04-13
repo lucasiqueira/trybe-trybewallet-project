@@ -27,6 +27,7 @@ class Table extends Component {
     const { dispatch } = this.props;
     dispatch(editExpenseBegins(id));
     dispatch(editExpenseCapture(id));
+    console.log(id);
   };
 
   onDeleteButtonClick = async ({ target }) => {
@@ -79,12 +80,11 @@ class Table extends Component {
                     <td>
                       <button
                         data-testid="edit-btn"
-                        name={ `edit-btn-${id}` }
                         onClick={ this.onEditButtonClick }
                         className="table-button"
                       >
                         <span className="no-show-label">Editar</span>
-                        <img src={ editIcon } alt="Editar" />
+                        <img src={ editIcon } alt="Editar" name={ `edit-btn-${id}` } />
                       </button>
                       <button
                         data-testid="delete-btn"
