@@ -5,10 +5,10 @@ export const DELETE_BTN_TEXT_POSITION = 11;
 export const EDIT_BTN_TEXT_POSITON = 9;
 
 export const INITIAL_WALLET_FORM_STATE = {
-  descriptionInput: '',
+  descInput: '',
   tagInput: 'Alimentação',
   valueInput: '',
-  paymentMethodInput: 'Dinheiro',
-  currencyInput: 'USD',
+  methodInput: 'Dinheiro',
+  curInput: 'USD',
   btnName: 'Adicionar despesa',
 };

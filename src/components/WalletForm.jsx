@@ -15,11 +15,11 @@ import { INITIAL_WALLET_FORM_STATE } from '../constants';
 
 class WalletForm extends Component {
   state = {
-    descriptionInput: '',
+    descInput: '',
     tagInput: 'Alimentação',
     valueInput: '',
-    paymentMethodInput: 'Dinheiro',
-    currencyInput: 'USD',
+    methodInput: 'Dinheiro',
+    curInput: 'USD',
     isLoading: false,
     enableEdit: true,
     btnName: 'Adicionar despesa',
@@ -46,11 +46,11 @@ class WalletForm extends Component {
     const { expenseToEdit } = this.props;
     const { currency, description, method, tag, value } = expenseToEdit;
     this.setState({
-      descriptionInput: description,
+      descInput: description,
       tagInput: tag,
       valueInput: value,
-      paymentMethodInput: method,
-      currencyInput: currency,
+      methodInput: method,
+      curInput: currency,
       enableEdit: false,
       btnName: 'Disabled',
     });
@@ -73,19 +73,14 @@ class WalletForm extends Component {
   handleEditSaveButton = async (e) => {
     e.preventDefault();
     const { dispatch, expenses, idToEdit } = this.props;
-    const {
-      valueInput,
-      descriptionInput,
-      currencyInput,
-      paymentMethodInput,
-      tagInput,
+    const { valueInput, descInput, curInput, methodInput, tagInput,
     } = this.state;
     const expense = {
       id: idToEdit,
       value: valueInput,
-      description: descriptionInput,
-      currency: currencyInput,
-      method: paymentMethodInput,
+      description: descInput,
+      currency: curInput,
+      method: methodInput,
       tag: tagInput,
       exchangeRates: expenses[idToEdit].exchangeRates,
     };
@@ -106,19 +101,14 @@ class WalletForm extends Component {
       await dispatch(fetchCurrenciesToExpense());
       this.setState({ isLoading: false }, async () => {
         const { currenciesToExpense } = this.props;
-        const {
-          valueInput,
-          descriptionInput,
-          currencyInput,
-          paymentMethodInput,
-          tagInput,
+        const { valueInput, descInput, curInput, methodInput, tagInput,
         } = this.state;
         const expense = {
           id: expenses.length,
           value: valueInput,
-          description: descriptionInput,
-          currency: currencyInput,
-          method: paymentMethodInput,
+          description: descInput,
+          currency: curInput,
+          method: methodInput,
           tag: tagInput,
           exchangeRates: currenciesToExpense,
         };
@@ -131,14 +121,7 @@ class WalletForm extends Component {
 
   render() {
     const { currencies, editor } = this.props;
-    const {
-      descriptionInput,
-      tagInput,
-      valueInput,
-      paymentMethodInput,
-      currencyInput,
-      isLoading,
-      btnName,
+    const { descInput, tagInput, valueInput, methodInput, curInput, isLoading, btnName,
     } = this.state;
     return (
       <form className="form-section">
@@ -148,8 +131,8 @@ class WalletForm extends Component {
             <input
               type="text"
               data-testid="description-input"
-              value={ descriptionInput }
-              name="descriptionInput"
+              value={ descInput }
+              name="descInput"
               onChange={ this.handleChange }
               className="input-element description-input"
             />
@@ -184,9 +167,9 @@ class WalletForm extends Component {
           <label className="method-label">
             <span>Método de Pagamento</span>
             <select
-              name="paymentMethodInput"
+              name="methodInput"
               data-testid="method-input"
-              value={ paymentMethodInput }
+              value={ methodInput }
               onChange={ this.handleChange }
               className="input-element"
             >
@@ -198,15 +181,13 @@ class WalletForm extends Component {
           <label className="currency-label">
             <span>Moeda</span>
             <select
-              name="currencyInput"
+              name="curInput"
               data-testid="currency-input"
-              value={ currencyInput }
+              value={ curInput }
               onChange={ this.handleChange }
               className="input-element"
             >
-              {
-                currencies.map((cur) => <option value={ cur } key={ cur }>{cur}</option>)
-              }
+              { currencies.map((c) => <option value={ c } key={ c }>{c}</option>) }
             </select>
           </label>
         </section>
