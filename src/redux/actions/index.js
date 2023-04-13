@@ -7,6 +7,11 @@ export const ADD_EXPENSE = 'ADD_EXPENSE';
 export const RECEIVE_CURRENCIES_TO_EXPENSE = 'RECEIVE_CURRENCIES_TO_EXPENSE';
 export const REFRESH_TOTAL_EXPENSE = 'REFRESH_TOTAL_EXPENSE';
 export const REMOVE_EXPENSE = 'REMOVE_EXPENSE';
+export const EDIT_EXPENSE_BEGINS = 'EDIT_EXPENSE_BEGINS';
+export const EDIT_EXPENSE_CAPTURE = 'EDIT_EXPENSE_CAPTURE';
+export const EDIT_EXPENSE_FORM_RENDERS = 'EDIT_EXPENSE_FORM_RENDERS';
+export const REFRESH_EXPENSES = 'REFRESH_EXPENSES';
+export const DISABLE_EDITOR = 'DISABLE_EDITOR';
 
 export const saveEmail = (email) => ({
   type: SAVE_EMAIL,
@@ -55,4 +60,27 @@ export const refreshTotalExpense = (total) => ({
 export const removeExpense = (id) => ({
   type: REMOVE_EXPENSE,
   payload: id,
+});
+
+export const editExpenseBegins = (id) => ({
+  type: EDIT_EXPENSE_BEGINS,
+  payload: id,
+});
+
+export const editExpenseCapture = (id) => ({
+  type: EDIT_EXPENSE_CAPTURE,
+  payload: id,
+});
+
+export const editExpenseFormRenders = () => ({
+  type: EDIT_EXPENSE_FORM_RENDERS,
+});
+
+export const refreshExpenses = (expenses) => ({
+  type: REFRESH_EXPENSES,
+  payload: expenses,
+});
+
+export const disableEditor = () => ({
+  type: DISABLE_EDITOR,
 });

@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { refreshTotalExpense, removeExpense } from '../redux/actions';
-import { DELETE_BTN_TEXT_POSITION } from '../constants';
+import {
+  editExpenseBegins,
+  editExpenseCapture,
+  refreshTotalExpense,
+  removeExpense,
+} from '../redux/actions';
+import { DELETE_BTN_TEXT_POSITION, EDIT_BTN_TEXT_POSITON } from '../constants';
 
 class Table extends Component {
   refreshTotal = () => {
@@ -12,6 +17,14 @@ class Table extends Component {
       return acc;
     }, 0);
     dispatch(refreshTotalExpense(totalExpense.toFixed(2)));
+  };
+
+  onEditButtonClick = ({ target }) => {
+    const id = Number(target.name.slice(EDIT_BTN_TEXT_POSITON));
+    const { dispatch } = this.props;
+    dispatch(editExpenseBegins(id));
+    dispatch(editExpenseCapture(id));
+    // dispatch(editExpenseFormRenders());
   };
 
   onDeleteButtonClick = async ({ target }) => {
@@ -61,6 +74,13 @@ class Table extends Component {
                   <td>{(exchangeRates[currency].ask * value).toFixed(2)}</td>
                   <td>Real</td>
                   <td>
+                    <button
+                      data-testid="edit-btn"
+                      name={ `edit-btn-${id}` }
+                      onClick={ this.onEditButtonClick }
+                    >
+                      Editar
+                    </button>
                     <button
                       data-testid="delete-btn"
                       onClick={ this.onDeleteButtonClick }

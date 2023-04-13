@@ -63,7 +63,7 @@ select {
   width: 80%;
 }
 
-.add-expense-button {
+.exp-btn {
   background: #2fc18c;
   border: 1px solid #2fc18c;
   border-radius: 5px;
@@ -77,4 +77,10 @@ select {
   text-align: center;
   top: 318px;
   width: 330px;
+}
+
+.exp-btn:disabled {
+  background-color: gray;
+  border: 1px solid gray;
+  display: none;
 }
